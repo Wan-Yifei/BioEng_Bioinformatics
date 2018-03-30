@@ -105,18 +105,17 @@ git pull origin master
 ![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/git%20pull%20unrelated.PNG)
 
 因为这会对远端的数据进行覆盖，所以被要求编写一个备注说明情况方便将来检查。这里会自动进入一个Vim文本编辑器内部。Vim可以被视为是nix/Linux的Word，它有命令模式、输入模式、底线命令模式三种状态，这里不多说，直接开始操作：
-
 + 当前Vim处于命令模式下：
-![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/vim1.PNG)
+
+
 
 + 按下字母`i`进入输入模式，屏幕底端会出现<insert>或<插入>（专门调出中文操作系统让大家看）：
-![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/vim2.PNG)
+
 
 + 现在就可以像编辑txt一样修改上方黄字为所需备注，然后Esc返回命令模式。按下冒号`:`进入底线命令模式，输入'wq'回车（意为保存与退出）：
-![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/vim3.PNG)
 
 + 控制台反馈显示`README.md`被成功拉取合并到本地：
-![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/merge.PNG)
+
 
 此时如果打开项目的工作目录会发现`README.md`已经赫然在列。
 
