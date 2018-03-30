@@ -88,7 +88,7 @@ git remote -v
 
 + 在控制台中输入添加远端地址的命令，记得将你的地址粘贴在命令后。在Unix中复制是`Ctrl + insert`，粘贴是`shift + insert'：
 ```
-git remote add origin https://github.com/WanYifei/test.git #地址换成你自己的
+git remote add origin https://github.com/WanYifei/test.git ## 地址换成您自己的
 ```
 然后再次试用检查当前链接的命令，确认是否添加远端成功：
 ![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/add%20remote.PNG)
@@ -100,10 +100,23 @@ git remote add origin https://github.com/WanYifei/test.git #地址换成你自�
 ```
 git pull origin master
 ```
+
 但是有时候会**发生错误**，因为Git无法判断本地与远端的数据是否存在历史联系。此时添加如下参数进行拉取和合并：
 ![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/git%20pull%20unrelated.PNG)
+
+因为这会对远端的数据进行覆盖，所以被要求编写一个备注说明情况方便将来检查。这里会自动进入一个Vim文本编辑器内部。Vim可以被视为是nix/Linux的Word，它有命令模式、输入模式、底线命令模式三种状态，这里不多说，直接开始操作：
+
++ 当前Vim处于命令模式下：
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/vim1.PNG)
+
++ 按下字母`i`进入输入模式，屏幕底端会出现<insert>或<插入>（专门调出中文操作系统让大家看）：
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/vim2.PNG)
+
++ 现在就可以像编辑txt一样修改上方黄字为所需备注，然后Esc返回命令模式。按下冒号`:`进入底线命令模式，输入'wq'回车（意为保存与退出）：
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/vim3.PNG)
+
++ 控制台反馈显示`README.md`被成功拉取合并到本地：
 ![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/merge.PNG)
-显示`README.md`被成功拉取合并到本地。
 
 此时如果打开项目的工作目录会发现`README.md`已经赫然在列。
 
@@ -113,21 +126,23 @@ git pull origin master
 1. 工作目录；
 2. 暂存区；
 3. 本地代码仓库。
+
 工作目录就是正在进行开发的R程序所在的文件夹。工作目录中的文件在被加入(add）暂存区前被称为“未暂存”（unstage）。暂存区顾名思义是暂时保存代码等待进一步处理或批注的区域，是Git区别于其他版本控制程序的一个特点，有缓冲作用。处于其中的文件被称为暂存的（staged）。暂存数据可以进一步被提交（commit）到本地代码仓库。接下来我们将通过如下步骤来将工作目录中新创建的`test.R`文件提价到本地仓库：
-+ 在Rstudio的git窗口中将需要提交到暂存区的文件打钩，文件前出现`A`表示添加（add）成功：
++ 在Rstudio的git窗口中将需要提交到暂存区的文件打钩，文件状态栏（status）出现`A`表示添加（add）成功：
 ![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/stage.PNG)
 
 + 点击git窗口中的`Commit`按钮进入提交窗口，此时需要在commit message栏中输入提交备注，虽然不写也行，但是推荐在实际工作中认真填写，对于管理项目帮助很大。填完后点击`Commit`完成提价：
 ![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/commit.PNG)
-如果提交成功，commit窗口中对应的文件应该会消失。此时`test.R`就已经处于本地代码库了（committed）。**注意**：提交的其实是文件的一个快照副本，而非文件本身，所以工作目录中的对应文件不会消失。
+如果提交成功，git窗口中对应的文件应该会消失。此时`test.R`就已经处于本地代码库了（committed）。**注意**：提交的其实是文件的一个快照副本而非文件本身，所以工作目录中的对应文件不会消失。
 
 ### 1.9 推送本地数据到远端
-此时git窗口的向上的箭头按钮"push"已经亮起，说明可以使用，但是为了排除故障我们会用命令行而非图形界面完成推送。与pull相对的push命令可以将本地仓库中的文件发送到远端，程序会自动比较两地文件版本的差异并且加以记录：
+此时git窗口的向上的箭头按钮"push"已经亮起，说明可以使用，但是为了排除可能的故障我们会用命令行而非图形界面完成推送。与pull相对的push命令可以将本地仓库中的文件发送到远端，程序会自动比较两地文件版本的差异并且加以记录：
 ```
 git push
 ```
 Git在开始推送之前会询问Github用户名与邮箱，因为Github远端在接收本地数据时会记录提交人的身份，邮箱地址被当作ID使用:
 ![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/push%201st%20username.PNG)
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/require%20password.PNG)
 
 这么简单就完了？当然不是，推送失败了：
 ![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/git%20push%20fatal.PNG)
@@ -137,18 +152,76 @@ Git在开始推送之前会询问Github用户名与邮箱，因为Github远端�
 git push --set--upstream origin master
 ```
 ![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/push%20password.PNG)
-![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/git%20push%20origin.PNG)
 
 此时显示提交成功！
-到GitHub的页面上再去确认一下，可以看到`test.R`已经存在于远端了！我们已经成功完成了A剧本下了Git + Rstudio配置！
+到GitHub的页面上再去确认一下，可以看到`test.R`已经存在于远端了！我们已经成功完成了A剧本下了Git + Rstudio配置！之后不喜欢命令行的同学就可以完全依靠Rstudio中git窗口下的按钮进行简单快速的操作了。
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/push%20success1.PNG)
 
 ## 2. 项目文件修改与安全设置
-本章节进一步介绍文件的推送和Git的一些全局设置，方便大家使用Git和理解Git的工作方式。
+本章节进一步介绍文件的推送和Git的一些全局设置，方便大家使用Git和理解Git的工作方式。为了能够使执行更加清晰，这里继续使用命令行而非图形界面进行操作。
 ### 2.1 文件修改后的提交
-既然是开发中的项目那么频繁的修改就很难避免，在修改后就会需要再次提交与推送。让我们修改一下工作目录中的`test.R`看看会发生什么：
+既然是开发中的项目那么频繁的修改就很难避免，在修改后就会需要再次提交与推送。让我们修改一下工作目录中的`test.R`看看会发生什么。在`test.R`中随便敲几个字保存。回到`Git bash`，使用status命令查看本地git监视下的文件状态变化：
+```
+git status
+```
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/git%20status.PNG)
+
+
+反馈信息中第一行红色的部分显示`test.R`遭到修改（modified），其上方的白字指出修改后没有添加到暂存区（not staged）。如果回到Rstudio中也可以看见
+用上文的方法或命令`add`添加修改后的文件,再次检查状态：
+```
+git add test.R
+```
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/R%20status%202.PNG)
+
+此时反馈变为绿色并告知已经做好提交准备。
+
+然后输入commit命令将其提交到本地库，在参数`-m`后输入文件名与备注，备注多于一个单词需要使用引号：
+```
+git commit -m test.R 'test password' ## test password是随手写的备注
+```
+之后的推送过程就会与上文介绍的推送相同，完成后可以在网页上看到文件与备注都发生了改变
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/push%20success2.PNG)
+
+### 2.2 开启安全设置
+在再次提交文件的过程中，git再次要求用户提供账号密码，这就尴尬了。难道每次提交都要输入账号密码吗？cre
+![img](![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/git%20push%20origin.PNG)
+
+当然不是，我们可以将账号、邮箱、密码都保存在本地，git会自动的调用他们。在本例子中笔者将用户名与邮箱设置为全局变量（Git bash默认推荐的设置方法），当然也可以设置为局部的，大家可以另行谷歌。
++ 设置全局用户名：
+```
+git config --globe user.name "XXX" ## XXX请换为您的用户名
+```
++ 设置邮箱:
+```
+git config --globe user.email "XXX" ## XXX
+```
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/set%20username%20and%20email.PNG)
+
++ 设置完成后需要检查一下全局设置清单，确认是否保存成功：
+```
+git config --globe --list
+```
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/check%20username.PNG)
+
+如上图，用户名和邮箱出现在列表中说明设置成功。
+
++ 设置密码：
+密码的设置与用户名不同（毕竟最重要嘛）。有多种方式可以保存或缓冲密码。对于最新的windows版本Git，官方推荐使用credential.helper下的manager进行密码管理。密码会被作为秘钥保存在windows系统的秘钥管理系统而非普通地保存在文本中：
+```
+https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/credentialhelper.PNG
+````
+在下次提交时输入密码后密码就会被记录保存，之后就不再需要反复输入了。
++ 设置好之后再次检查一些全局列表确认密码管理研究打开：
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/check%20password.PNG)
+
+`credential.helper = manager`显示已经成功启动密码管理。
+
+### 2.3 关闭安全设置
+如果想要消除保留的用户名称与密码应该怎么做呢？
+
++ 
 
 
 
-
-在开始推送本地数据之前我们需要设置和保存用户名与邮箱，因为Github远端在接收本地数据时会记录提交人的身份，邮箱地址被当作ID使用。在本例子中笔者将用户名与邮箱设置为全局变量（bash默认推荐的设置方法），当然也可以设置为局部的，大家可以另行谷歌。设置命令如下：
 
