@@ -139,8 +139,8 @@ git pull origin master
 ```
 git push
 ```
-
 Git在开始推送之前会询问Github用户名与邮箱，因为Github远端在接收本地数据时会记录提交人的身份，邮箱地址被当作ID使用:
+
 ![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/push%201st%20username.PNG)
 
 ![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/require%20password.PNG)
