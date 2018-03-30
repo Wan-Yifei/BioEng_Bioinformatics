@@ -112,11 +112,15 @@ git pull origin master
 
 + 按下字母`i`进入输入模式，屏幕底端会出现<insert>或<插入>（专门调出中文操作系统让大家看）：
 
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/vim2.PNG)
 
 + 现在就可以像编辑txt一样修改上方黄字为所需备注，然后Esc返回命令模式。按下冒号`:`进入底线命令模式，输入'wq'回车（意为保存与退出）：
 
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/vim3.PNG)
+
 + 控制台反馈显示`README.md`被成功拉取合并到本地：
 
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/merge.PNG)
 
 此时如果打开项目的工作目录会发现`README.md`已经赫然在列。
 
