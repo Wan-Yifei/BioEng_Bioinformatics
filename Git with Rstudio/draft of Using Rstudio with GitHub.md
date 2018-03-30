@@ -44,8 +44,16 @@ R语言是进行生物信息学数据分析工作的主要计算机语言之一�
 
 ![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/new%20project4.PNG)
 
++ 点击菜单栏`Tools` -> `Version Control` -> `Project Setup`，然后在弹出窗口中选择`Git/svn`。最后将下拉菜单设置为`Git`再点击`Yes`就好。Rstudio会自动重启，不用担心：
+
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/Git_SVN.PNG)
+
+此时如果你在Rstudio右上角的窗口中发现多了一个`Git`选项，这就说明你设置成功了：
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/Git%20panel.PNG)
+
 到此，R本地项目的建立完成。为了接下来的调试，我们可以在此项目下建立一个新的R脚本`test.R`并且写入一句批注：
 ![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/r1.PNG)
+
 
 ### 1.4 建立远端仓库
 既然已经有了本地项目了，现在就该着手建立远端仓库了。
@@ -56,7 +64,18 @@ R语言是进行生物信息学数据分析工作的主要计算机语言之一�
 
 ### 1.5 将远端地址添加到本地
 Rstudio和Git还没有智能到我们建立了GitHub远端就自动知道的地步（就算能我也一定让Firewall把他们ban掉，太吓人了），所以我们需要人工的将远端地址添加到远程的记录中。本地的Git的配置有两种方式，一个是使用Rstudio内部的Git菜单和控制台，对应的是CMD命令行。我实在不喜欢CMD的冗长显示（其实是因为我记不住命令），所以选择第二种方式使用`Git bash`，对应的是Unix/Linux命令行。有时遇到异常或错误，`Git bash`会提示你可以尝试的命令，只需要复制粘贴就行，很贴心。用刚才安装时建立的快捷方式打开`Git bash`。
-+ 
++ 首先先切换到项目所在目录，输入命令cd与目录地址：
+```
+cd 'f:/R workspace/test'
+```
+用单引号引起路径是告诉控制台路径是一个整体，不然会被误认为是多个独立的参数而报错（因为我的路径包含了一个空格）。单引号或双引号都是可以的。需要指出因为是Unix的命令行所以使用了正斜杠`/`，如果你是直接从Windows中复制的路径请记得把反斜杠`\`换掉。
+成功后会显示如下：
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/change%20folder.PNG)
+
+在用户名后会出现工作目录的路径并且有一个蓝色的`(master)`，这其实是提示你当前的文件夹内是你程序的主干（暗示在将来的发展中可能会有分支）。同时这也告知你Git已经成功初始化了此项目的配置文件开始跟踪这个项目（Git：放心，我盯着了）。如果没有这个`(master)`出现，说明上面的设置可能有误，请重来，或手工输入初始化命令：
+```
+git init
+```
 
 
 
