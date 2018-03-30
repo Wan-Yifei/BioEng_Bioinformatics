@@ -2,22 +2,22 @@
 ### Author: "Yifei Wan"
 ### Date: "March 28 2018"
 
-**Warning**`:以下内容基于笔者本人使用的Win10操作系统编写。`
+`Warning:以下内容基于笔者本人使用的Win10操作系统编写。`
 
 ## 前言
-R语言是进行生物信息学数据分析工作的主要计算机语言之一（加上"**之一**"免得被Python缠住脖子），大量的生物信息学包基于R被开发,比如著名的DESeq2。生物信息学工作者（干“干活”的）乃至实验室的一线研究员（干“湿活”的）都或多或少的会与R接触。编程这种事情嘛，总是免不了时不时要修改下代码什么的。但是如果我某天突然想找回之前被删掉的代码呢应该怎么办呢（行话叫做“滚回，roll back”）？要知道在R中一但保存退出可就没有后悔药可以吃了（和大家使用Excel时完全相同）。这个时候我们就需要请出本文的正神——**版本控制**技术了。
+R语言是进行生物信息学数据分析工作的主要计算机语言之一（加上"**之一**"免得被Python缠住脖子），大量的生物信息学包基于R被开发,比如著名的DESeq2。生物信息学工作者（干“干活”的）与实验室的一线研究员（干“湿活”的）都或多或少的会与R接触。编程这种事情嘛，总是免不了时不时要修改下代码什么的。但是如果我某天突然想找回之前被删掉的代码呢应该怎么办呢（行话叫做“滚回，roll back”）？要知道在R中一但保存退出可就没有后悔药可以吃了（和大家使用Excel时完全相同）。这个时候我们就需要请出本文的正神——**版本控制**技术了。
 
 版本控制（version control）是一种记录代码改变过程并加以记录和管理的技术&工程思想，它可以帮我们轻松地归纳整理与可视化出程序“进化”的历史过程，并且在我们提出要求时为我们滚回其中特定的历史阶段。这在多人合作开发的时候尤其有用。版本控制可以避免因为一个人的失误而全局皆损，并且在最短的时间内帮助开发组回到上一步，甚至它还能统计出每个人的工作量。版本控制也可以被当成一个云端数据库用来托管我们繁杂而老旧的项目，这样你就不用担心自己的服务器和工作站上有大量记不起来用途的文件夹了。托管别的东西也可以，比如本文采用的所有图片都托管在GitHub上。如果你想了解更多相关内容可以阅读以下官方文档：
 [About Version Control](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control).
 
-主流的版本控制系统（version control system）有SVN和GitHub等。其中GitHub采用了分布式代码管理的技术，是目前最流行的代码版本控制工具而且是开源和免费的（免费其实该打引号，免费的数据仓库会处于公开状态，任何人都可以访问，但是只有项目参与者可以提交和修改，对于一般的生信项目这不算事。不空开的私人仓库就要付费）。作为菜鸟的笔者接下来将对Github与Rstudio结合的方法进行分享。本着能用图片说明就不要用文字的原则，本文预计含有大量图片，所以请注意流量消耗。
+主流的版本控制系统（version control system）有SVN和GitHub等。其中GitHub采用了分布式代码管理的技术，是目前最流行的代码版本控制工具而且是开源和免费的（免费其实该打引号，免费的数据仓库会处于公开状态，任何人都可以访问，但是只有项目参与者可以提交和修改，对于一般的生信项目这不算事。不空开的私人仓库就要付费）。作为菜鸟的笔者接下来将分享把Github与Rstudio结合的方法。本着能用图片说明就不要用文字的原则，本文预计含有大量图片，所以请注意流量消耗。
 
 ## 在开始前的准备
 1. 安装R语言：如果您没有R应该也不会点进本文来……不过还是奉上链接[R language](https://www.r-project.org/)。
-2. 安装Rstudio: Rstudio是R最受欢的集成开发环境（IDE）,提供了成熟的可视化编程界面。而且其界面似乎为数据分析进行过专门的优化，使用MATLAB与Spyder（Python的一款开发环境）进行数据分析的读者一定能发现三者窗口布置非常类似……强烈建议使用Rstudio来取代RGui，大幅提高效率。如果您还没有安装请点击然后选择适配操作系统的版本下载：[Rstudio](https://www.rstudio.com/products/RStudio/)。
+2. 安装Rstudio: Rstudio是R最受欢的集成开发环境（IDE）,提供了成熟的可视化编程界面。而且其界面似乎为数据分析进行过专门的优化，使用MATLAB与Spyder（Python的一款开发环境）进行数据分析的读者一定能发现三者窗口布置非常类似……强烈建议使用Rstudio来取代RGui，大幅提高效率。如果您还没有安装请点击链接然后选择适配操作系统的版本下载：[Rstudio](https://www.rstudio.com/products/RStudio/)。
 
 ## 1. Git的安装与配置
-接下来我们将会一一步一步地安装和配置Git。只有Git？Hub怎么不见了？其实GitHub分为本地仓库（local repository）与远端仓库（remote repository）两部分，计算机上的代码会先提交到本地再推送到远端。其中本地的管理工具被叫做Git,远端的就是GitHub的网站，统称Github。
+接下来我们将会一一步一步地安装和配置Git。只有Git呢？Hub怎么不见了？其实GitHub分为本地仓库（local repository）与远端仓库（remote repository）两部分，计算机上的代码会先提交到本地再推送到远端。其中本地的管理工具被叫做Git,远端的就是GitHub的网站，统称Github。
 ### 1.1 GitHub 申请账户
 对于远端其实比较简单，登陆[GitHub](https://github.com/)的网站注册一个账号就可以了，这个不多说。
 ### 1.2 下载和安装Git
@@ -28,7 +28,7 @@ R语言是进行生物信息学数据分析工作的主要计算机语言之一�
 
 其他选项都用默认就可以了。可以让程序自己创建一个快捷方式，将来会方便些。
 ### 1.3 建立本地的R项目
-在运用版本控制的过程中有两种基本的剧本，第一种（剧本A）就是先在本地建立了开发项目进行开发，之后再在远端建立仓库，最后将已经存在的项目推送到远端。这很常见，有的时候在旅途中突然有个点子立马开始码代码，但是没有wifi无法推送，就等到到达之后再建立远端仓库进行提交。但是这种方法会遇到一些问题，所以也是本文讨论重点。第二种剧本（剧本B）略有差异，是先去建立了远端空仓库，然后将仓库与配置了Git的Rstudio连接起来建立项目。换言之，建立项目时远端仓库已经存在而且Rstudio会弹出窗口询问你的远端仓库地址。我们先讨论较为复杂第剧本A：
+在运用版本控制的过程中有两种基本的剧本，第一种（剧本A）就是先在本地建立了项目进行开发，之后再在远端建立仓库，最后将已经存在的项目推送到远端。这很常见，有的时候在旅途中突然有个点子立马开始码代码，但是没有wifi无法推送，就等到到达之后再建立远端仓库进行提交。但是这种方法会遇到一些问题，所以将是本文讨论重点。第二种剧本（剧本B）略有差异，是先去建立了远端空仓库，然后将仓库与配置了Git的Rstudio连接起来建立项目。换言之，建立项目时远端仓库已经存在而且Rstudio会弹出窗口询问你的远端仓库地址。可以认为Rstudio把远端的空仓库克隆到了本地（执行这一操作的命令就是`clone`）。我们先讨论较为复杂第剧本A：
 + 打开Rstudio在菜单中选择建立新项目：
 ![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/new%20project.PNG)
 
@@ -60,10 +60,10 @@ R语言是进行生物信息学数据分析工作的主要计算机语言之一�
 首先登陆Github账户，选择`Start a project`,然后出现如下页面：
 ![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/test%20repo%201.PNG)
 
-输入你想要的项目名称和描述（可选），注意在下方有一个打钩的选项询问是否初始化一个`README.md`文件，那其实就是一个自述文件，你可以在其中输入对项目的详细说明面得将来忘记（和你下载游戏补丁时遇到的`读我.txt`是一类东西，不过是使用了Markdown格式，本文原稿也是Markdown格式）。你之后也手动创建这个文件。点击`Create repository`完成创建远端代码仓库。
+输入你想要的项目名称和描述（可选），注意在下方有一个打钩的选项询问是否初始化一个`README.md`文件，那其实就是一个自述文件，你可以在其中输入对项目的详细说明免得将来忘记（和你下载游戏补丁时遇到的`读我.txt`是一类东西，不过是使用了Markdown格式，本文原稿也是Markdown格式）。你之后也可以手动创建这个文件。点击`Create repository`完成创建远端代码仓库。
 
 ### 1.5 将远端地址添加到本地
-Rstudio和Git还没有智能到我们建立了GitHub远端就自动知道的地步（就算能我也一定让Firewall把他们ban掉，太吓人了），所以我们需要人工的将远端地址添加到远程的记录中。本地的Git的配置有两种方式，一个是使用Rstudio内部的Git菜单和控制台，对应的是CMD命令行。我实在不喜欢CMD的冗长显示（其实是因为我记不住命令），所以选择第二种方式使用`Git bash`，对应的是Unix/Linux命令行。有时遇到异常或错误，`Git bash`会提示你可以尝试的命令，只需要复制粘贴就行，很贴心。用刚才安装时建立的快捷方式打开`Git bash`。
+Rstudio和Git还没有智能到我们建立了GitHub远端就自动知道的地步（就算能我也一定让Firewall把他们ban掉，太吓人了），所以我们需要人工的将远端地址添加到本地的记录中。本地的Git的配置有两种方式，一个是使用Rstudio内部的Git菜单和控制台，对应的是CMD命令行。我实在不喜欢CMD的冗长显示（其实是因为我记不住命令），所以选择第二种方式使用`Git bash`，对应的是Unix/Linux命令行。有时遇到异常或错误`Git bash`会提示你可以尝试的命令，只需要复制粘贴就行，很贴心。用刚才安装时建立的快捷方式打开`Git bash`。
 + 首先先切换到项目所在目录，输入命令cd与目录地址：
 ```
 cd 'f:/R workspace/test'
@@ -72,12 +72,83 @@ cd 'f:/R workspace/test'
 成功后会显示如下：
 ![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/change%20folder.PNG)
 
-在用户名后会出现工作目录的路径并且有一个蓝色的`(master)`，这其实是提示你当前的文件夹内是你程序的主干（暗示在将来的发展中可能会有分支）。同时这也告知你Git已经成功初始化了此项目的配置文件开始跟踪这个项目（Git：放心，我盯着了）。如果没有这个`(master)`出现，说明上面的设置可能有误，请重来，或手工输入初始化命令：
+在用户名后会出现工作目录的路径并且有一个蓝色的`(master)`，这其实是提示你当前的文件夹内是你程序的主干（暗示在将来的发展中可能会有其他分支）。同时这也告知你Git已经成功初始化了此项目的配置文件开始跟踪这个项目（Git：放心，我盯着了）。如果没有这个`(master)`出现，说明上面的建立项目的过程可能有误，请重来，或手工输入初始化命令：
 ```
 git init
 ```
++ 使用如下命令查看当前链接的远端仓库：
+```
+git remote -v
+```
+此时返回的应该是空白才对，因为我们还没有连接远程仓库：
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/check%20remote1.PNG)
+
++ 打开GitHub上的远端仓库，可以看到一个绿色按钮`clone or download`，点击并复制弹出窗口中的远端地址：
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/repo%20clone.PNG)
+
++ 在控制台中输入添加远端地址的命令，记得将你的地址粘贴在命令后。在Unix中复制是`Ctrl + insert`，粘贴是`shift + insert'：
+```
+git remote add origin https://github.com/WanYifei/test.git #地址换成你自己的
+```
+然后再次试用检查当前链接的命令，确认是否添加远端成功：
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/add%20remote.PNG)
+
+可以看到返回的结果中有fetch（接收）与push（推送）两个地址。当本地从远端下载数据使用前者，向远端发送数据使用后者，但是其实两个地址是相同的。
+
+### 1.6 将远端数据拉取到本地 
+现在远端已经添加成功，我们需要对本地和远端进行同步，首先应该把远端数据拉到本地来。还记得上文提到的`README.md`文件吗，此文件当就前只存在于远端，而本地没有。所以使用pull（拉取）命令将整个远端拷贝到本地进行合并（merge）。程序只会选出在远、本两端存在差异的文件进行传输，所以在文件很多的时候也不会耗费太多时间：
+```
+git pull origin master
+```
+但是有时候会**发生错误**，因为Git无法判断本地与远端的数据是否存在历史联系。此时添加如下参数进行拉取和合并：
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/git%20pull%20unrelated.PNG)
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/merge.PNG)
+显示`README.md`被成功拉取合并到本地。
+
+此时如果打开项目的工作目录会发现`README.md`已经赫然在列。
+
+### 1.7 将工作目录内的文件提交本地仓库
+
+简要介绍下Git在本地的三层结构：
+1. 工作目录；
+2. 暂存区；
+3. 本地代码仓库。
+工作目录就是正在进行开发的R程序所在的文件夹。工作目录中的文件在被加入(add）暂存区前被称为“未暂存”（unstage）。暂存区顾名思义是暂时保存代码等待进一步处理或批注的区域，是Git区别于其他版本控制程序的一个特点，有缓冲作用。处于其中的文件被称为暂存的（staged）。暂存数据可以进一步被提交（commit）到本地代码仓库。接下来我们将通过如下步骤来将工作目录中新创建的`test.R`文件提价到本地仓库：
++ 在Rstudio的git窗口中将需要提交到暂存区的文件打钩，文件前出现`A`表示添加（add）成功：
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/stage.PNG)
+
++ 点击git窗口中的`Commit`按钮进入提交窗口，此时需要在commit message栏中输入提交备注，虽然不写也行，但是推荐在实际工作中认真填写，对于管理项目帮助很大。填完后点击`Commit`完成提价：
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/commit.PNG)
+如果提交成功，commit窗口中对应的文件应该会消失。此时`test.R`就已经处于本地代码库了（committed）。**注意**：提交的其实是文件的一个快照副本，而非文件本身，所以工作目录中的对应文件不会消失。
+
+### 1.9 推送本地数据到远端
+此时git窗口的向上的箭头按钮"push"已经亮起，说明可以使用，但是为了排除故障我们会用命令行而非图形界面完成推送。与pull相对的push命令可以将本地仓库中的文件发送到远端，程序会自动比较两地文件版本的差异并且加以记录：
+```
+git push
+```
+Git在开始推送之前会询问Github用户名与邮箱，因为Github远端在接收本地数据时会记录提交人的身份，邮箱地址被当作ID使用:
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/push%201st%20username.PNG)
+
+这么简单就完了？当然不是，推送失败了：
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/git%20push%20fatal.PNG)
+
+究其原因还是程序无法判断本地和远端的历史先后，不知道以谁作为上级分支。所以需要手动为其添加设定，告知程序两者其实是同一个东西，合并就好。应当使用的设置命令已经被bash贴心地给出在反馈中，直接复制粘贴。会有一个窗口弹出来询问你的Github密码：
+```
+git push --set--upstream origin master
+```
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/push%20password.PNG)
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/git%20push%20origin.PNG)
+
+此时显示提交成功！
+到GitHub的页面上再去确认一下，可以看到`test.R`已经存在于远端了！我们已经成功完成了A剧本下了Git + Rstudio配置！
+
+## 2. 项目文件修改与安全设置
+本章节进一步介绍文件的推送和Git的一些全局设置，方便大家使用Git和理解Git的工作方式。
+### 2.1 文件修改后的提交
+既然是开发中的项目那么频繁的修改就很难避免，在修改后就会需要再次提交与推送。让我们修改一下工作目录中的`test.R`看看会发生什么：
 
 
 
 
+在开始推送本地数据之前我们需要设置和保存用户名与邮箱，因为Github远端在接收本地数据时会记录提交人的身份，邮箱地址被当作ID使用。在本例子中笔者将用户名与邮箱设置为全局变量（bash默认推荐的设置方法），当然也可以设置为局部的，大家可以另行谷歌。设置命令如下：
 
