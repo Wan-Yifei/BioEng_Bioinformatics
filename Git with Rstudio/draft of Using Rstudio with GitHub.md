@@ -131,7 +131,7 @@ git pull origin master
 2. 暂存区；
 3. 本地代码仓库。
 
-工作目录就是正在进行开发的R程序所在的文件夹。工作目录中的文件在被加入(add）暂存区前被称为“未暂存”（unstage）。暂存区顾名思义是暂时保存代码等待进一步处理或批注的区域，是Git区别于其他版本控制程序的一个特点，有缓冲作用。处于其中的文件被称为暂存的（staged）。暂存数据可以进一步被提交（commit）到本地代码仓库。接下来我们将通过如下步骤来将工作目录中新创建的`test.R`文件提价到本地仓库：
+工作目录就是正在进行开发的R程序所在的文件夹。工作目录中的文件在被加入(add）暂存区前被称为“未暂存”（not staged）。暂存区顾名思义是暂时保存代码等待进一步处理或批注的区域，是Git区别于其他版本控制程序的一个特点，有缓冲作用。处于其中的文件被称为暂存的（staged）。暂存数据可以进一步被提交（commit）到本地代码仓库。我们将通过如下步骤来将工作目录中新创建的`test.R`文件提价到本地仓库：
 + 在Rstudio的git窗口中将需要提交到暂存区的文件打钩，文件状态栏（status）出现`A`表示添加（add）成功：
 ![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/stage.PNG)
 
@@ -160,7 +160,7 @@ git push --set--upstream origin master
 ![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/push%20password.PNG)
 
 此时显示提交成功！
-到GitHub的页面上再去确认一下，可以看到`test.R`已经存在于远端了！我们已经成功完成了A剧本下了Git + Rstudio配置！之后不喜欢命令行的同学就可以完全依靠Rstudio中git窗口下的按钮进行简单快速的操作了。
+到GitHub的页面上再去确认一下，可以看到`test.R`已经存在于远端了！我们已经成功完成了A剧本下的Git + Rstudio配置！之后不喜欢命令行的同学就可以完全依靠Rstudio中git窗口下的按钮进行简单快速的操作了。
 ![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/push%20success1.PNG)
 
 ## 2. 项目文件修改与安全设置
