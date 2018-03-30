@@ -104,10 +104,11 @@ git pull origin master
 但是有时候会**发生错误**，因为Git无法判断本地与远端的数据是否存在历史联系。此时添加如下参数进行拉取和合并：
 ![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/git%20pull%20unrelated.PNG)
 
-因为这会对远端的数据进行覆盖，所以被要求编写一个备注说明情况方便将来检查。这里会自动进入一个Vim文本编辑器内部。Vim可以被视为是nix/Linux的Word，它有命令模式、输入模式、底线命令模式三种状态，这里不多说，直接开始操作：
+因为这会对数据进行覆盖，所以被要求编写一个备注说明情况方便将来检查。这里会自动进入一个Vim文本编辑器内部。Vim可以被视为是nix/Linux的Word，它有命令模式、输入模式、底线命令模式三种状态，这里不多说，直接开始操作：
+
 + 当前Vim处于命令模式下：
 
-
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/vim1.PNG)
 
 + 按下字母`i`进入输入模式，屏幕底端会出现<insert>或<插入>（专门调出中文操作系统让大家看）：
 
