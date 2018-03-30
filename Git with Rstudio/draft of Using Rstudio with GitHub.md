@@ -196,17 +196,17 @@ git commit -m test.R 'test password' ## test password是随手写的备注
 当然不是，我们可以将账号、邮箱、密码都保存在本地，git会自动的调用他们。在本例子中笔者将用户名与邮箱设置为全局变量（Git bash默认推荐的设置方法），当然也可以设置为局部的，大家可以另行谷歌。
 + 设置全局用户名：
 ```
-git config --globe user.name "XXX" ## XXX请换为您的用户名
+git config --global user.name "XXX" ## XXX请换为您的用户名
 ```
 + 设置邮箱:
 ```
-git config --globe user.email "XXX" ## XXX
+git config --global user.email "XXX" ## XXX
 ```
 ![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/set%20username%20and%20email.PNG)
 
 + 设置完成后需要检查一下全局设置清单，确认是否保存成功：
 ```
-git config --globe --list
+git config --global --list
 ```
 ![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/check%20username.PNG)
 
@@ -215,7 +215,7 @@ git config --globe --list
 + 设置密码：
 密码的设置与用户名不同（毕竟最重要嘛）。有多种方式可以保存或缓冲密码。对于最新的windows版本Git，官方推荐使用credential.helper下的manager进行密码管理。密码会被作为秘钥保存在windows系统的秘钥管理系统而非普通地保存在文本中：
 ```
-https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/credentialhelper.PNG
+git config --global credential.helper manager
 ````
 在下次提交时输入密码后密码就会被记录保存，之后就不再需要反复输入了。
 + 设置好之后再次检查一些全局列表确认密码管理研究打开：
