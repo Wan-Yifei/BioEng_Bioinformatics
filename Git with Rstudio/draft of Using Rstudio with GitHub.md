@@ -196,7 +196,7 @@ git commit -m test.R 'test password' ## test password是随手写的备注
 ![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/push%20success2.PNG)
 
 ### 2.2 开启安全设置
-在多次提交文件的过程中，git反复要求用户提供账号密码，这就尴尬了。难道每次提交都要输入账号密码吗？当然不是，我们可以将账号、邮箱、密码都保存在本地，git会自动的调用他们。在本例子中笔者将用户名与邮箱设置为全局变量（Git bash默认推荐的设置方法）。当然也可以设置为局部的，大家可以另行谷歌。
+在多次提交文件的过程中，git反复要求用户提供账号密码，这就尴尬了。难道每次提交都要输入账号密码吗？当然不是，我们可以将账号、邮箱、密码都保存在本地，git会自动地调用他们。在本例子中笔者将用户名与邮箱设置为全局变量（Git bash默认推荐的设置方法）。当然也可以设置为局部的，大家可以另行谷歌。
 
 + 设置全局用户名：
 
@@ -205,7 +205,7 @@ git config --global user.name "XXX" ## XXX请换为您的用户名
 ```
 + 设置邮箱:
 ```
-git config --global user.email "XXX" ## XXX
+git config --global user.email "XXX" ## XXX请换为您的邮箱
 ```
 ![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/set%20username%20and%20email.PNG)
 
@@ -223,27 +223,31 @@ git config --global --list
 git config --global credential.helper manager
 ````
 在下次提交时输入密码后密码就会被记录保存，之后就不再需要反复输入了。
-+ 设置好之后再次检查一些全局列表确认密码管理已经打开：
++ 设置好之后再检查一次全局列表确认密码管理已经打开：
 ![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/check%20password.PNG)
 
 `credential.helper = manager`显示已经成功启动密码管理。
 
 ### 3. 剧本B条件下的配置
 剧本B是较为简单的情况，有了上文剧本A的操作经验可以很快完成设置。
-首先建立远端仓库。然后再打开Rstudio建立项目。
-+ 这次请选择第三项`Version control`：
++ 首先建立远端仓库test2:
+
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/clone/test%20repo%202.PNG)
+
++ 然后再打开Rstudio建立项目。这次请选择第三项`Version control`：
 
 ![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/new%20project2.PNG)
 
 +  然后选择Git：
 
-！[img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/clone/new%20project%20local.PNG)
+![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/clone/new%20project%20local.PNG)
 
-+ 最后将远端的地址粘贴到对话框中，项目名会自动出现，点击`Create project`将远端克隆到本地：
++ 最后将远端的地址粘贴到对话框中，项目名test2会自动出现，点击`Create project`将远端克隆到本地：
+
+![img](https://github.com/Wan-Yifei/BioEng_Bioinformatics/blob/master/Git%20with%20Rstudio/clone/test%20repo%202%20clone.PNG)
 
 ![img](https://raw.githubusercontent.com/Wan-Yifei/BioEng_Bioinformatics/master/Git%20with%20Rstudio/clone/new%20project%20local%20git.PNG)
-
-此刻基本的配置就已经完成，可以自由进行pull或Push等操作了！可以根据使用需要决定是否进行安全设置。是不是比剧本A简单多了？所以如果可以请选择以这种方式建立项目。
+可能可以请选择以这种方式建立项目。
 
 ## 尾声
 上面絮絮叨叨了这么多，初步的介绍了Git与Rstudio结合进行版本控制的方法，希望能给您带来些许的收获。生物信息学作为一个交叉学科涉及面极其广阔，需要掌握大量的知识和技能，而计算机科学理论与计算机工程技巧毫无疑问是其中重要一环。笔者作为初出茅庐的新人也在不断学习当中。希望能有更多机会与大家交流，共同进步。如果您对此文有什么意见或建议欢迎留言或发送邮件交流。
