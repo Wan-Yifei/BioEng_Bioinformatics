@@ -1,2 +1,2 @@
 # BioEng_Bioinformatics
-This is use for BioEng's paper
+This is used for BioEng's paper
