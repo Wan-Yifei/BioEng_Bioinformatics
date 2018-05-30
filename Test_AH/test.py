@@ -12,50 +12,62 @@ import numpy as np
 # Input BAM and BED
 path_bam = '/home/ywan/localdata/test1/BioEng_Bioinformatics/Test_AH/TEST1.bam'
 path_bed = '/home/ywan/localdata/test1/BioEng_Bioinformatics/Test_AH/TEST1_region.bed'
-samraw = py.AlignmentFile(path_bam, 'rb')
-
-# Sort and index
-try:
-    samraw.check_index()
-except ValueError:
-    py.sort('-o', '/home/ywan/localdata/test1/BioEng_Bioinformatics/Test_AH/sorted.bam', path_bam)
-    py.index('/home/ywan/localdata/test1/BioEng_Bioinformatics/Test_AH/sorted.bam')
-    path_bam = '/home/ywan/localdata/test1/BioEng_Bioinformatics/Test_AH/sorted.bam'
+  
+def Bam_prepare(path_bam):
     samraw = py.AlignmentFile(path_bam, 'rb')
-    #print('Is there index: %s'%(samraw.check_index())) ## Check index
+    # Sort and index
+    try:
+        samraw.check_index()
+    except ValueError:
+        py.sort('-o', '/home/ywan/localdata/test1/BioEng_Bioinformatics/Test_AH/sorted.bam', path_bam)
+        py.index('/home/ywan/localdata/test1/BioEng_Bioinformatics/Test_AH/sorted.bam')
+        path_bam = '/home/ywan/localdata/test1/BioEng_Bioinformatics/Test_AH/sorted.bam'
+        return(py.AlignmentFile(path_bam, 'rb'))
+        #print('Is there index: %s'%(samraw.check_index())) ## Check index    
+samraw = Bam_prepare(path_bam)
 
 # =============================================================================
 # Q1. Average sequencing quality
 # =============================================================================
 
-seqq = []
-for line in samraw:
-    temp = np.array(line.query_qualities)
-    seqq.append(temp.mean())
-
-seqq = np.array(seqq)                                       ## Seq quality of each read
-seqq_ave = seqq.mean()                                      ## Average sequencing quality
-                           
-print('Average sequencing quality: {0:.2f}'.format(seqq_ave))
-
-del seqq 
+def Average_quality(sam_class):
+    seqq = []
+    for line in sam_class:
+        temp = np.array(line.query_qualities)
+        seqq.append(temp.mean())
+    
+    seqq = np.array(seqq)                                       ## Seq quality of each read
+    seqq_ave = seqq.mean()                                      ## Average sequencing quality
+    print('Average sequencing quality: {0:.2f}'.format(seqq_ave))  
+    del seqq 
+    
+Average_quality(samraw)
 
 # =============================================================================
 # Q2. Percentage of reads enriched in the target regions 
 # =============================================================================
 
 import pybedtools as bd
-target = bd.BedTool(path_bed)
-bam = bd.BedTool(path_bam)
-temp = bam.bam_to_bed(stream=True).saveas()
-target = target.remove_invalid().saveas()
 
-ontag_reads = temp.coverage(target, counts=True).sort()        ## Reads mapped on target regions
-read_count = np.array([int(line[-1]) for line in ontag_reads]) 
-              
-Per_ontag = read_count.sum()/samraw.mapped*100                 ## Percentage of reads enriched in the target regions
 
-print('Percentage of reads enriched in the target regions: {0:.2f}%'.format(Per_ontag))
+def Bed_prepare(path_bed, path_bam):
+    # prepare bed_class
+    target = bd.BedTool(path_bed)
+    bam = bd.BedTool(path_bam)
+    temp = bam.bam_to_bed(stream=True).saveas()                   ## temp bam file as bed_class
+    target = target.remove_invalid().saveas()
+    return(bam, temp, target)
+
+def Read_enrichment(target, temp):
+    ontag_reads = temp.coverage(target, counts=True).sort()        ## Reads mapped on target regions
+    read_count = np.array([int(line[-1]) for line in ontag_reads]) 
+                  
+    Per_ontag = read_count.sum()/samraw.mapped*100                 ## Percentage of reads enriched in the target regions
+    
+    print('Percentage of reads enriched in the target regions: {0:.2f}%'.format(Per_ontag))    
+
+bam, temp, target = Bed_prepare(path_bed, path_bam)
+Read_enrichment(target, temp)
 
 # =============================================================================
 # Q3. Percentage of bases enriched in the target regions
