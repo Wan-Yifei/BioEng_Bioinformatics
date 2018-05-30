@@ -75,16 +75,19 @@ Read_enrichment(target, temp)
 
 import pandas as pan
 
-tagcov_base = target.coverage(temp, d=True)
-
-ontag_base = np.array([int(base[5]) for base in tagcov_base])  ## the depth at each position on target
-genomecov_base = bd.BedTool.genome_coverage(bam, dz=True)      ## the depth at each position on genome    
-gencov_perbase = pan.read_table(genomecov_base.fn, names=['chrom', 'position', 'depth'])
-gencov_allbase = (gencov_perbase.iloc[:, 2]).sum()             ## Total bases mapped on genome
-
-
-Per_base = ontag_base.sum()/gencov_allbase*100
-print('Percentage of bases enriched in the target regions: {0:.2f}%'.format(Per_base))
+def Base_enrichment(temp, bam):
+    tagcov_base = target.coverage(temp, d=True)
+    
+    ontag_base = np.array([int(base[5]) for base in tagcov_base])  ## the depth at each position on target
+    genomecov_base = bd.BedTool.genome_coverage(bam, dz=True)      ## the depth at each position on genome    
+    gencov_perbase = pan.read_table(genomecov_base.fn, names=['chrom', 'position', 'depth'])
+    gencov_allbase = (gencov_perbase.iloc[:, 2]).sum()             ## Total bases mapped on genome
+       
+    Per_base = ontag_base.sum()/gencov_allbase*100
+    print('Percentage of bases enriched in the target regions: {0:.2f}%'.format(Per_base))
+    return(ontag_base)
+    
+ontag_base = Base_enrichment(temp,bam)
 
 # =============================================================================
 # Q4. Uniformity of coverage 
